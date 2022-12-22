@@ -9,8 +9,6 @@ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 end  
 game:GetService("RunService").Heartbeat:Connect(function()
     for i,v in pairs(game.Workspace:GetChildren()) do
-    if (v.Name == "Head") then
-        v.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
-    end
+    v.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
     end  
 end)
