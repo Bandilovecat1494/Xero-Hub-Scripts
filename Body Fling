@@ -4,7 +4,7 @@ bambam.Force = Vector3.new(9999999,0,9999999)
 bambam.Location = game.Players.LocalPlayer.Character.Head.Position
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
     if (v:IsA("Part")) then
-        bambam:Clone().Parent = v.Handle
+        bambam:Clone().Parent = v
     end
 end  
 game:GetService("RunService").Heartbeat:Connect(function()
