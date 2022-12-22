@@ -1,14 +1,4 @@
 local bambam = Instance.new("BodyThrust")
-bambam.Parent = workspace
-bambam.Force = Vector3.new(9999999,0,9999999)
+bambam.Parent = game.Players.LocalPlayer.Character.Head
+bambam.Force = Vector3.new(0,9000,0)
 bambam.Location = game.Players.LocalPlayer.Character.Head.Position
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-    if (v:IsA("Part")) then
-        bambam:Clone().Parent = v
-    end
-end  
-game:GetService("RunService").Heartbeat:Connect(function()
-    for i,v in pairs(game.Workspace:GetChildren()) do
-    v.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
-    end  
-end)
