@@ -10,9 +10,7 @@ end
 game:GetService("RunService").Heartbeat:Connect(function()
     for i,v in pairs(game.Workspace:GetChildren()) do
     if (v.Name == "Head") then
-        v.CanCollide = true
-    else
-        v.CFrame = v.Parent.Head.CFrame
+        v.CFrame = game.Players.LocalPlayer.Character.Head.CFrame
     end
     end  
 end)
