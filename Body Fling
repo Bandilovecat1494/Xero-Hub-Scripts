@@ -2,3 +2,7 @@ local bambam = Instance.new("BodyThrust")
 bambam.Parent = game.Players.LocalPlayer.Character.Head
 bambam.Force = Vector3.new(0,9000,0)
 bambam.Location = game.Players.LocalPlayer.Character.Head.Position
+local bamba2m = Instance.new("BodyThrust")
+bamba2m.Parent = game.Players.LocalPlayer.Character.Torso
+bamba2m.Force = Vector3.new(3123120,3123120,3123120)
+bamba2m.Location = game.Players.LocalPlayer.Character.Head.Position
