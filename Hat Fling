@@ -1,0 +1,16 @@
+local bambam = Instance.new("BodyThrust")
+bambam.Parent = workspace
+bambam.Force = Vector3.new(9999999,0,9999999)
+bambam.Location = game.Players.LocalPlayer.Character.Head.Position
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if (v:IsA("Accessory")) then
+        bambam:Clone().Parent = v.Handle
+    end
+end  
+game:GetService("RunService").Heartbeat:Connect(function()
+    for i,v in pairs(game.Workspace:GetChildren()) do
+    if (v:IsA("Accessory")) then
+    v.Handle.CFrame = Mouse.Hit
+    end
+    end  
+end)
