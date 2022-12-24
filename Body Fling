@@ -1,4 +1,4 @@
 local bambam = Instance.new("BodyThrust")
 bambam.Parent = game.Players.LocalPlayer.Character.Head
-bambam.Force = Vector3.new(0,9000,0)
+bambam.Force = Vector3.new(9000,9000,9000)
 bambam.Location = game.Players.LocalPlayer.Character.Head.Position
