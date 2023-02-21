@@ -1,0 +1,224 @@
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+
+local win = DiscordLib:Window("discord library")
+
+local Respawn = "Normal"
+local Gitch = false
+
+--Normal Is just a Normal Death type
+--Fast Is just like a Normal Death type but respawn fast and goto the death point
+--Long Is if death then makes the players character a nil for 10 seconds then go's back to normal
+
+
+local serv = win:Server("Main", "")
+
+local Teams = serv:Channel("Teams")
+local Local = serv:Channel("Character Functions")
+local SS = serv:Channel("Server-Side/SS")
+
+Teams:Button("Become Inmate", function()
+    workspace.Remote.TeamEvent:FireServer("Bright orange")  
+end)
+Teams:Button("Become Guard", function()
+    workspace.Remote.TeamEvent:FireServer("Bright blue")  
+end)
+local Nat = Color3.fromHSV(0,0,0)
+Teams:Button("Become Neutral [Turns on Fast Respawn]", function()
+    	local position = workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame
+	local _, RY, _ = position:ToOrientation()
+	position = CFrame.new(position.p) * CFrame.fromOrientation(0, RY, 0)
+
+	local camera = workspace.CurrentCamera.CFrame
+
+	workspace.Remote.loadchar:InvokeServer(nil,Nat)
+
+	local HumanoidRootPart = workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild('HumanoidRootPart',0.3)
+
+	HumanoidRootPart.CFrame = position
+
+	workspace.CurrentCamera.CFrame = camera
+	workspace.CurrentCamera.Changed:Wait()
+	workspace.CurrentCamera.CFrame = camera
+
+	game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+    Respawn = "Fast"
+end)
+Teams:Colorpicker("ESP Color", Color3.fromHSV(255,1,1), function(t)
+    Nat = t
+end)
+Teams:Button("Become Criminal", function()
+    local position = workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame
+    workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame = CFrame.new(0,9000,0)
+    wait(0.2)
+    workspace:FindFirstChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame = position
+end)
+
+local WH = false
+_G.Rig = nil
+--Normal just is like the Normal Reanimate Maybe Bug free but yea
+
+
+local SWG = false
+
+SS:Toggle("Spawn with guns",false, function(bool)
+    SWG = bool
+end)
+Local:Button("Reanimate", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/E9LkqrVb", true))()
+end)
+Local:Button("FE Reanimate Fling [Requires Reanimate]", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bandilovecat1494/Fling-Hub/main/Fling%20ig",true))()
+end)
+Local:Button("FE headless [Requires Reanimate]", function()
+game.Players.LocalPlayer.Character.Head.att1_Head.Position = Vector3.new(0,-10,0)
+end)
+Local:Button("FE Amogus Head [Requires Reanimate]", function()
+game.Players.LocalPlayer.Character.Head.att1_Head.Position = Vector3.new(0,-1.3,-0.5)
+game.Players.LocalPlayer.Character.Head.Mesh:Destroy()
+game.Players.LocalPlayer.Character.Model.Head.Mesh:Destroy()
+end)
+Local:Button("FE High head [Requires Reanimate]", function()
+game.Players.LocalPlayer.Character.Head.att1_Head.Position = Vector3.new(0,3,0)
+end)
+local a = false
+Local:Button("Nameless V3", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Bandilovecat1494/Others-OP-scripts/main/Nameless",true))()
+end)
+Local:Toggle("Hide head/Broken Head",false, function(bool)
+    a = bool
+end)
+
+
+
+local drop = Local:Dropdown("Respawn Type/Death Type",{"Normal","Fast"}, function(bool)
+    Respawn = bool
+end)
+
+
+--local textbs = serv:Channel("Textboxes")
+
+--textbs:Textbox("Gun power", "Type here!", true, function(t)
+--    print(t)
+--end)
+
+
+SS:Label("This is Buggy But its Alright")
+
+local Respawning = false
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    local UserID = game.Players.LocalPlayer.UserId --Keeps sure to not mess with your character
+    game.Players.LocalPlayer.Character.Humanoid.Died:Connect(function()
+    if Respawn == "Fast" then
+        local Old = game.Players.LocalPlayer.Character.Head.CFrame
+        wait(0.04)
+        if Respawning == false then
+            Respawning = true
+
+            local args = {
+                [1] = game.Players.LocalPlayer.Character.Name
+            }
+            workspace.Remote.loadchar:InvokeServer(unpack(args))
+            wait(0.02)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Old
+            wait(0.03)
+            Respawning = false
+            if SWG == true then
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver:FindFirstChild("Remington 870").ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver.M9.ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver:FindFirstChild("AK-47").ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+                            local player = game:GetService("Players").LocalPlayer
+local gun = player.Backpack:FindFirstChild("AK-47")
+local sM = require(gun:FindFirstChild("GunStates"))
+sM["Damage"] = 40
+sM["MaxAmmo"] = 90
+sM["StoredAmmo"] = 9000
+sM["FireRate"] = 0.05
+sM["AmmoPerClip"] = 9000
+sM["Range"] = 90000
+sM["ReloadTime"] = 0.01
+sM["Bullets"] = 3
+sM["AutoFire"] = true
+            local player = game:GetService("Players").LocalPlayer
+local gun = player.Backpack:FindFirstChild("M9")
+local sM = require(gun:FindFirstChild("GunStates"))
+sM["Damage"] = 40
+sM["MaxAmmo"] = 90
+sM["StoredAmmo"] = 9000
+sM["FireRate"] = 0.05
+sM["AmmoPerClip"] = 9000
+sM["Range"] = 90000
+sM["ReloadTime"] = 0.01
+sM["Bullets"] = 3
+sM["AutoFire"] = true
+            local player = game:GetService("Players").LocalPlayer
+local gun = player.Backpack:FindFirstChild("Remington 870")
+local sM = require(gun:FindFirstChild("GunStates"))
+sM["Damage"] = 40
+sM["MaxAmmo"] = 90
+sM["StoredAmmo"] = 9000
+sM["FireRate"] = 0.05
+sM["AmmoPerClip"] = 9000
+sM["Range"] = 90000
+sM["ReloadTime"] = 0.01
+sM["Bullets"] = 5
+sM["AutoFire"] = true
+
+            end
+        end
+
+    end
+            wait(5.2)
+                    if SWG == true then
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver:FindFirstChild("Remington 870").ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver.M9.ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+                local args = {
+                    [1] = workspace.Prison_ITEMS.giver:FindFirstChild("AK-47").ITEMPICKUP
+                }
+
+                workspace.Remote.ItemHandler:InvokeServer(unpack(args))
+
+            end
+end)
+if HN == true then
+    if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+        wait(0.04)
+        game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(90,90,90)
+    end
+end
+--[[
+for i,v in pairs(game.Players:GetChildren()) do
+    if v.UserId == game.Players.LocalPlayer.UserId then
+        print("[Moon CLient]: Falsey tryed to hurt player [Thats You] Blocked Hurt")
+    else
+        if Aura == true then
+            game:GetService("ReplicatedStorage").meleeEvent:FireServer(v)
+            wait(0.02)
+        end
+    end
+end
+]]--
+if a == true then
+    game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(math.random(-10,10),0,math.random(-10,10),math.random(-10,10),0,math.random(-10,10))
+end
+end)
